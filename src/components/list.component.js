@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Input from "../components/input.component";
 import apiService from "../services/api.service";
 
+import './list.component.css';
 
-function List() {
+
+function List({selectCoin}) {
 
     const [listData, setListData] = useState(null);
     const [filteredListData, setFilteredListData] = useState(null);
+    const [activeId, setActiveId] = useState(null);
 
     useEffect(()=>{ //get all data from the api from the service and set it as listData and the filtered listData. 
-        apiService.get().then((data)=> {
+        apiService.getAll().then((data)=> {
             setListData(data);
             setFilteredListData(data);
         })
@@ -24,10 +27,16 @@ function List() {
         }
 
     }
+
+    const select = (id) =>{
+        selectCoin(id);
+        setActiveId(id);
+    }
+
     
 
     return(
-     <div className="m-auto mt-16 w-11/12">
+     <div className="m-auto mt-16 w-11/12 p-5">
          <h1 className="uppercase text-center text-2xl mb-5">Coin search</h1>
 
          <p className="text-center text-base">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
@@ -40,7 +49,7 @@ function List() {
                 {
                     filteredListData.map((elm,i) =>
 
-                        <div className="m-5 cursor-pointer" key={i}>{elm.name}</div>
+                        <div className={`my-5 cursor-pointer ${activeId === elm.id ? 'active' : ''}`} key={i} onClick={(e)=>select(elm.id)}>{elm.name}</div>
                     )
                 }
             </div>
