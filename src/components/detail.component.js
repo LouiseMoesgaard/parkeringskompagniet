@@ -9,7 +9,7 @@ function Detail({selectedCoin, chartData}) {
             <h2 className="uppercase text-lg mb-5 pt-4">Description</h2>
 
                 {
-                    selectedCoin.description ?
+                    selectedCoin.description.en ?
                     <p className="text-base">{selectedCoin.description.en}</p>
                     : <p className="text-base">
                         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
@@ -27,7 +27,7 @@ function Detail({selectedCoin, chartData}) {
             </div>
              {
                  chartData?
-                 <div className="mt-12">
+                 <div className="mt-6">
                     <LineChart data={chartData}></LineChart>
                  </div>
                  : null
